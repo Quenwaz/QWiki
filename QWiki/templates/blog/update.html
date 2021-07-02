@@ -9,11 +9,28 @@
     <label for="title">Title</label>
     <input name="title" id="title" value="{{ request.form['title'] or post['title'] }}" required>
     <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+    <div id="test-editormd">
+      <textarea  style="display:none;" name="body" id="body">{{ request.form['body'] or post['body'] }}</textarea>
+    </div>
     <input type="submit" value="Save">
   </form>
   <hr>
   <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
   </form>
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+  var testEditor;
+  $(function() {
+      testEditor = editormd("test-editormd", {
+          width   : "100%",
+          height  : 640,
+          syncScrolling : "single",
+          path    : "{{ url_for('static', filename='editormd/lib/') }}"
+      });
+
+  });
+</script>
 {% endblock %}
