@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='editormd/css/editormd.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block title %}{% endblock %}
+{% block bodyclass %}{% endblock %}
+{% block mainclass %}{% endblock %}
+{% block navigation %}
+{% include "navigation.html" %}
+{% endblock %}
+
+
+{% block content %}{% endblock %}
+
+
+
+{% block script %}
+<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='editormd/editormd.min.js') }}"  crossorigin="anonymous"></script>
+{% endblock %}

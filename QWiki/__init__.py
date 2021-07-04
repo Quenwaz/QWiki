@@ -1,7 +1,6 @@
 import os
 
 from flask import Flask
-import markdown
 
 
 def create_app(test_config=None):
@@ -48,5 +47,4 @@ def create_app(test_config=None):
     # the tutorial the blog will be the main index
     app.add_url_rule("/", endpoint="index")
 
-    app.jinja_env.globals.update(tomarkdown=markdown.markdown)
     return app

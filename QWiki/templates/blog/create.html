@@ -1,15 +1,46 @@
-{% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}New Post{% endblock %}</h1>
-{% endblock %}
+{% extends 'main.html' %}
+{% block navigation %}{% endblock %}
+
+{% block title %}新文章{% endblock %}
 
 {% block content %}
   <form method="post">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-    <input type="submit" value="Save">
+    <div class="input-group mb-1">
+      <label for="title" class="input-group-text">标题</label>
+      <input class="form-control" id="title" name="title" value="{{ request.form['title'] }}" required>
+      <button class="btn btn-outline-secondary" type="submit">保存</button>
+    </div>
+    <div class="mb-3">
+    <div id="test-editormd" class="form-control">
+      <textarea  style="display:none;" name="body" id="body">{{ request.form['body']  }}</textarea>
+    </div>
+    </div>
+    
   </form>
+  
+
+{% endblock %}
+
+{% block script %}
+{{super()}}
+<script type="text/javascript">
+  var testEditor;
+  $(function() {
+      testEditor = editormd("test-editormd", {
+          width   : "100%",
+          height  : 640,
+          watch   : false,
+          syncScrolling : "single",
+          toolbarIcons : function() {
+            // console.log(editormd.toolbarModes["full"])
+            // return editormd.toolbarModes["simple"]; // full, simple, mini
+            // Using "||" set icons align right.
+            // return ["undo", "redo", "|", "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|", "goto-line", "watch", "preview", "fullscreen", "clear", "search", "|", "help", "info"]
+            return ["undo", "redo", "|", "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|", "h1", "h2", "h3", "h4", "h5", "h6", "|", "list-ul", "list-ol", "hr", "|", "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime", "emoji", "html-entities", "pagebreak", "|", "goto-line", "watch", "preview", "clear", "search", "help"]
+          },
+          path    : "{{ url_for('static', filename='editormd/lib/') }}"
+      });
+  });
+</script>
 {% endblock %}
